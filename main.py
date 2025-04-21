@@ -45,7 +45,10 @@ def count_words_in_directory(directory: str):
     Returns:
         list: A list of dictionaries containing file names and word counts.
     """
+
     blog_word_counts = []
+
+    # traverse for all files
     for root, _, files in os.walk(directory):
         for file in files:
             if file.endswith(".md"):
@@ -62,13 +65,21 @@ def count_words_in_directory(directory: str):
 
 
 def get_log_filename(log_dir="log") -> str:
-    """Generate a timestamp-based log filename."""
+    """Generate a time stamp based log filename
+
+    Args:
+        log_dir (str, optional): the name of log_directory. Defaults to "log".
+
+    Returns:
+        str: the address of the json file
+    """
+
     # Generate the log dir
     os.makedirs(log_dir, exist_ok=True)
 
     # Get timestamp
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    return os.path.join(log_dir, f"log_{timestamp}.txt")
+    return os.path.join(log_dir, f"log_{timestamp}.json")
 
 
 def save_to_json(blog_word_counts):
@@ -77,6 +88,7 @@ def save_to_json(blog_word_counts):
     Args:
         blog_word_counts (list): A list of dictionaries containing word count data.
     """
+
     file_name = get_log_filename(log_dir="log")
     with open(file_name, "w", encoding="utf-8") as json_file:
         json.dump(blog_word_counts, json_file, ensure_ascii=False, indent=4)
@@ -88,6 +100,7 @@ def do_calculate(blog_word_counts):
     Args:
         blog_word_counts (list): A list of dictionaries containing word count data.
     """
+
     total_article_num = len(blog_word_counts)
     total_word_count = sum(item["word_count"] for item in blog_word_counts)
     new_data = {
