@@ -83,22 +83,39 @@ def save_to_json(blog_word_counts):
 
 
 def do_calculate(blog_word_counts):
-    """Calculate the total number of articles and words.
+    """Calculate the total number of articles and words, and append to total.json.
 
     Args:
         blog_word_counts (list): A list of dictionaries containing word count data.
-        file_name (str): The directory path.
     """
     total_article_num = len(blog_word_counts)
     total_word_count = sum(item["word_count"] for item in blog_word_counts)
-    total_data = {
-        "time": datetime.now().strftime("%Y-%m-%d"),
+    new_data = {
+        "time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "total_articles": total_article_num,
         "total_word_count": total_word_count,
     }
+
     file_name = "total.json"
+
+    # Read existing data from total.json if it exists
+    if os.path.exists(file_name):
+        with open(file_name, "r", encoding="utf-8") as json_file:
+            try:
+                existing_data = json.load(json_file)
+                if not isinstance(existing_data, list):
+                    existing_data = [existing_data]
+            except json.JSONDecodeError:
+                existing_data = []
+    else:
+        existing_data = []
+
+    # Append new data to the existing data
+    existing_data.append(new_data)
+
+    # Write the updated data back to total.json
     with open(file_name, "w", encoding="utf-8") as json_file:
-        json.dump(total_data, json_file, ensure_ascii=False, indent=4)
+        json.dump(existing_data, json_file, ensure_ascii=False, indent=4)
 
 
 if __name__ == "__main__":
