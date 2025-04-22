@@ -135,6 +135,11 @@ if __name__ == "__main__":
     print("Let's see how many words you have typed in your Blog!")
     file_name = "/mnt/d/Blog/source/_posts"
     ans = count_words_in_directory(file_name)
+    print("Wow, You have wrote some many Blog!")
+
     save_to_json(ans)
+    print("Answers saved to json")
+    
     do_calculate(ans)
+    print("Answers calculated in the total.json")
     print("Finished")
