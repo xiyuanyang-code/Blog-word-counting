@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Update Status</title>
+    <style>
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif, 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #a8c0ff 0%, #d9e4ff 100%);
+            color: #333;
+        }
+
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #4a90e2;
+            margin-bottom: 20px;
+            font-size: 36px;
+        }
+
+        .status {
+            font-size: 20px;
+            font-weight: bold;
+            color: #4a90e2;
+            margin: 20px 0;
+        }
+
+        .time {
+            font-size: 16px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .message {
+            font-size: 15px;
+            color: #333;
+            margin-top: 15px;
+        }
+
+        .history {
+            margin-top: 20px;
+            text-align: left;
+            display: none;
+            /* Hidden by default */
+        }
+
+        .history h2 {
+            font-size: 18px;
+            color: #4a90e2;
+            margin-bottom: 10px;
+        }
+
+        .history ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .history li {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .buttons {
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .buttons .view-history {
+            background-color: #4a90e2;
+            color: white;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: bold;
+
+        }
+
+        .buttons .exit-history {
+            background-color: #1fd4b9;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: bold;
+            color: white;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Blog Update Status</h1>
+        <div class="time" id="show-time">Current Time: Loading...</div>
+        <div class="status" id="total-articles">Total Articles: Loading...</div>
+        <div class="status" id="total-words">Total Words: Loading...</div>
+        <div class="time" id="last-updated">Last Updated: Loading...</div>
+        <div class="message">
+            Keep writing, keep growing! 🌟
+        </div>
+        <div class="buttons">
+            <button class="view-history" id="view-history-btn">View History</button>
+            <button class="exit-history" id="exit-history-btn">Exit History</button>
+        </div>
+        <div class="history" id="history-section">
+            <h2>Recent Updates</h2>
+            <ul id="history-list">
+                <li>Loading history...</li>
+            </ul>
+        </div>
+
+        <h3>Talk is cheap, show you my CODE.😊</h3>
+        <div class="message">
+            My Personal Blog: <a href="https://xiyuanyang-code.github.io/">xiyuanyang-code.github.io</a>
+            <br>
+            Updating Status of All My Blog Posts: <a href="https://xiyuanyang-code.github.io/posts/My-Posts/">My-Posts</a>
+            <br>
+            Source Code: <a href="https://github.com/xiyuanyang-code/Blog-word-counting">Blog Word Counting</a>
+        </div>
+    </div>
+
+    <script>
+        // Fetch the latest data from total.json
+        async function fetchBlogStatus() {
+            try {
+                const response = await fetch('total.json');
+                const data = await response.json();
+
+                // Get the latest entry
+                const latest = data[data.length - 1];
+
+                // Update the DOM
+                document.getElementById('total-articles').textContent = `Total Articles: ${latest.total_articles || 'N/A'}`;
+                document.getElementById('total-words').textContent = `Total Words: ${latest.total_word_count || 'N/A'}`;
+                document.getElementById('last-updated').textContent = `Last Updated: ${latest.time || 'N/A'}`;
+
+                // Store the data for history viewing
+                window.blogHistoryData = data;
+            } catch (error) {
+                console.error('Error fetching blog status:', error);
+                document.getElementById('total-articles').textContent = 'Error loading data';
+                document.getElementById('total-words').textContent = 'Error loading data';
+                document.getElementById('last-updated').textContent = 'Error loading data';
+            }
+        }
+
+        // Show history
+        function showHistory() {
+            const historySection = document.getElementById('history-section');
+            const historyList = document.getElementById('history-list');
+            const viewHistoryBtn = document.getElementById('view-history-btn');
+            const exitHistoryBtn = document.getElementById('exit-history-btn');
+
+            // Clear existing history
+            historyList.innerHTML = '';
+
+            // Get the last 3 records
+            const recentHistory = window.blogHistoryData.slice(-3).reverse();
+            recentHistory.forEach(record => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Time: ${record.time || 'N/A'}, Articles: ${record.total_articles || 'N/A'}, Words: ${record.total_word_count || 'N/A'}`;
+                historyList.appendChild(listItem);
+            });
+
+            // Show history section and exit button, hide view button
+            historySection.style.display = 'block';
+            viewHistoryBtn.style.display = 'none';
+            exitHistoryBtn.style.display = 'inline-block';
+        }
+
+        // Hide history
+        function hideHistory() {
+            const historySection = document.getElementById('history-section');
+            const viewHistoryBtn = document.getElementById('view-history-btn');
+            const exitHistoryBtn = document.getElementById('exit-history-btn');
+
+            // Hide history section and exit button, show view button
+            historySection.style.display = 'none';
+            viewHistoryBtn.style.display = 'inline-block';
+            exitHistoryBtn.style.display = 'none';
+        }
+
+        // Event listeners for buttons
+        document.getElementById('view-history-btn').addEventListener('click', showHistory);
+        document.getElementById('exit-history-btn').addEventListener('click', hideHistory);
+
+        // Fetch the data on page load
+        fetchBlogStatus();
+
+        // Update the current time every second
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById("show-time").textContent = `Current Time: ${now.toLocaleTimeString()}`;
+        }, 1000);
+    </script>
+</body>
+
+</html>
