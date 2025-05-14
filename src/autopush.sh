@@ -6,7 +6,7 @@ MARKER_FILE=~/.last_push_date
 if [[ ! -f "$MARKER_FILE" || $(date +%Y-%m-%d) != $(cat "$MARKER_FILE") ]]; then
     cd "$REPO_DIR" || exit 1
     # run the bash scripts, but not outputting anything
-    bash src/run.sh
+    bash src/run.sh >/dev/null 2>&1
 
     if git status --porcelain | grep -q '^ M\|^M \|^A \|^D \|^\?\?'; then
         git add .
