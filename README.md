@@ -1,5 +1,7 @@
 # Blog Word Counter - README
 
+**Update**: Scripts for push the updates everyday automatically to github is available now! See `src/autopush.sh` for more details.
+
 ## Overview
 
 The Blog Word Counter is a Python utility designed to help bloggers and content creators track their writing progress by counting words in Markdown (.md) files. This tool is particularly useful for:
@@ -35,7 +37,7 @@ By default, the script looks for Markdown files in `/mnt/d/Blog/source/_posts`. 
 run the scripts via:
 
 ```bash
-python main.py
+bash src/run.sh
 ```
 
 ### Expected Output
