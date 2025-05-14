@@ -10,7 +10,7 @@
 # Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.
 ###
 cd ~/Hodgepodge/Blog-word-counting
-/home/xiyuanyang/anaconda3/bin/python ~/Hodgepodge/Blog-word-counting/main.py
+python ~/Hodgepodge/Blog-word-counting/src/main.py
 cat ~/Hodgepodge/Blog-word-counting/total.json | tail -5 | head -3
 echo "\nDone!"
 cd -
