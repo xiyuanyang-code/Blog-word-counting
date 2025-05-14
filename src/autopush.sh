@@ -13,7 +13,7 @@ if [[ ! -f "$MARKER_FILE" || $(date +%Y-%m-%d) != $(cat "$MARKER_FILE") ]]; then
         git commit -m "Auto-commit-update: $(date +'%Y-%m-%d %H:%M:%S')"
     fi
 
-    if git push origin main; then
+    if git push ; then
         date +%Y-%m-%d > "$MARKER_FILE"
     else
         echo "[Auto-Push] Failed to push. Will retry later."
