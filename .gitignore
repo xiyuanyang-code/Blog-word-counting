@@ -1,3 +1,4 @@
 /log/
 /.vscode/
 # total.json
+./last_push_date
