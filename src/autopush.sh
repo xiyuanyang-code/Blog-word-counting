@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 REPO_DIR="$HOME/Hodgepodge/Blog-word-counting"
 MARKER_FILE=~/.last_push_date
