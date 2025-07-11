@@ -1,16 +1,12 @@
 #!/bin/bash
-###
-# @Author: Xiyuan Yang   xiyuan_yang@outlook.com
-# @Date: 2025-04-27 22:10:13
- # @LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com
- # @LastEditTime: 2025-04-27 22:12:20
- # @FilePath: /Blog-word-counting/run.sh
-# @Description:
-# Do you code and make progress today?
-# Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.
-###
-cd ~/Hodgepodge/Blog-word-counting
-python ~/Hodgepodge/Blog-word-counting/src/main.py
-cat ~/Hodgepodge/Blog-word-counting/total.json | tail -5 | head -3
-echo "\nDone!"
+cd ../Blog-word-counting
+python ./src/main.py
+cat ./total.json | tail -5 | head -3
+echo "Done!"
+
+# add a simple version of auto-push
+git add .
+git commit -m "Upd: $(date '+%Y-%m-%d %H:%M:%S')"
+git push
+
 cd -
