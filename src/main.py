@@ -1,14 +1,3 @@
-"""
-Author: Xiyuan Yang   xiyuan_yang@outlook.com
-Date: 2025-04-21 18:52:45
-LastEditors: Xiyuan Yang   xiyuan_yang@outlook.com
-LastEditTime: 2025-04-21 19:00:58
-FilePath: /Blog-word-counting/main.py
-Description:
-Do you code and make progress today?
-Copyright (c) 2025 by Xiyuan Yang, All Rights Reserved.
-"""
-
 from datetime import datetime
 import os
 import json
@@ -133,7 +122,7 @@ def do_calculate(blog_word_counts):
 
 if __name__ == "__main__":
     print("Let's see how many words you have typed in your Blog!")
-    file_name = "/mnt/d/Blog/source/_posts"
+    file_name = "/home/xiyuanyang/Blog/Blog_Main/source/_posts"
     ans = count_words_in_directory(file_name)
     print("Wow, You have wrote some many Blog!")
 
